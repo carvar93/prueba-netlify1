@@ -43,7 +43,7 @@
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a href="#hero">Home</a></li>
-          <li><a href="#about">About Us</a></li>
+          <li><a href="#about">About Usa</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
           <li><a href="#team">Team</a></li>
@@ -538,45 +538,16 @@
 
 
 
+  <form method="post" class="myform" action="process-form.php">
+    <input type="text" name="name" placeholder="Your Name" required><br>
+    <input type="email" name="email" placeholder="Your Email" required><br>
+    <textarea rows="4" cols="20" name="message" placeholder="Your Message"></textarea><br>
+    <input type="submit" name="send" value="Send"> <span class="output_message"></span>
+</form>
 
 
 
 
-
-
-<!-- Start Contact Form -->
-<form role="form" id="contactForm" class="contact-form" data-toggle="validator" class="shake">
-  <div class="form-group">
-    <div class="controls">
-      <input type="text" id="name" class="form-control" placeholder="Name" required data-error="Please enter your name">
-      <div class="help-block with-errors"></div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="controls">
-      <input type="email" class="email form-control" id="email" placeholder="Email" required data-error="Please enter your email">
-      <div class="help-block with-errors"></div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="controls">
-      <input type="text" id="msg_subject" class="form-control" placeholder="Subject" required data-error="Please enter your message subject">
-      <div class="help-block with-errors"></div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="controls">
-      <textarea id="message" rows="7" placeholder="Massage" class="form-control" required data-error="Write your message"></textarea>
-      <div class="help-block with-errors"></div>
-    </div>  
-  </div>
-
-  <button type="submit" id="submit" class="btn btn-effect"><i class="fa fa-check"></i> Send Message</button>
-  <div id="msgSubmit" class="h3 text-center hidden"></div> 
-  <div class="clearfix"></div>   
-
-</form>     
-<!-- End Contact Form -->
 
   <!--==========================
     Footer
@@ -617,5 +588,37 @@
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
 
+  <script >
+
+$(document).ready(function() {
+    $('.myform').on('submit',function(){
+		
+		// Add text 'loading...' right after clicking on the submit button. 
+		$('.output_message').text('Loading...'); 
+		
+		var form = $(this);
+		$.ajax({
+			url: form.attr('action'),
+			method: form.attr('method'),
+			data: form.serialize(),
+			success: function(result){
+				if (result == 'success'){
+					$('.output_message').text('Message Sent!');  
+				} else {
+					$('.output_message').text('Error Sending email!');
+				}
+			}
+		});
+		
+		// Prevents default submission of the form after clicking on the submit button. 
+		return false;	
+	});
+});
+  </script>
+
+
+
+
+  
 </body>
 </html>
